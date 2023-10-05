@@ -7,7 +7,7 @@ function Description() {
       <Typography variant="h6" gutterBottom color="#3f51b5">
         Om Meg
       </Typography>
-      <Typography>Hei hei hei</Typography>
+      <Typography>Eksempeltekst</Typography>
     </Box>
   );
 }
