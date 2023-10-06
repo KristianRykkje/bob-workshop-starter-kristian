@@ -9,15 +9,24 @@ import {
   CircularProgress,
   Stack,
 } from "@mui/material";
+import HCaptcha from "@hcaptcha/react-hcaptcha";
 
 function ContactForm() {
   const [formData, setFormData] = useState({
     email: "",
     message: "",
+    "h-captcha-response": "",
   });
   const [snackbarMessage, setSnackbarMessage] = useState("");
   const [snackbarType, setSnackbarType] = useState("success");
   const [loading, setLoading] = useState(false);
+
+  const onHCaptchaChange = (token) => {
+    setFormData((prev) => ({
+      ...prev,
+      "h-captcha-response": token,
+    }));
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -67,7 +76,7 @@ function ContactForm() {
       <Stack component="form" onSubmit={handleSubmit} spacing={2}>
         <TextField
           label="Din e-post"
-          variant="outlined"
+          variant="filled"
           fullWidth
           margin="normal"
           value={formData.email}
@@ -88,10 +97,14 @@ function ContactForm() {
           required
           type="text"
         />
+        <HCaptcha
+          sitekey="50b2fe65-b00b-4b9e-ad62-3ba471098be2"
+          onVerify={onHCaptchaChange}
+        />
         <Stack justifyContent="flex-end" alignItems="flex-end">
           <Button
             type="submit"
-            variant="contained"
+            variant="filled"
             color="primary"
             disabled={loading}
           >
